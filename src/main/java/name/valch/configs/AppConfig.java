@@ -34,7 +34,7 @@ import java.util.Properties;
 @EnableTransactionManagement
 @ComponentScan({"name.valch"})
 @PropertySource("classpath:application.properties")
-@EnableJpaRepositories(basePackages = "name.valch.repository", entityManagerFactoryRef = "entityManagerFactory")
+@EnableJpaRepositories(basePackages = {"name.valch.repository"})
 @EnableScheduling
 
 public class AppConfig extends WebMvcConfigurerAdapter {

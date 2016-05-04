@@ -3,6 +3,7 @@ package name.valch;
 import name.valch.mail.MailManager;
 import name.valch.parser.SeasonvarParser;
 import name.valch.service.SerialService;
+import name.valch.service.SerialWithDatesService;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.EnableAutoConfiguration;
@@ -24,9 +25,9 @@ public class SeasonvarApplication extends SpringBootServletInitializer {
 	}
 
 	@Bean
-	public CommandLineRunner demo(MailManager mailManager, SerialService serialService) {
+	public CommandLineRunner demo(MailManager mailManager, SerialService serialService, SerialWithDatesService serialWithDatesService) {
 		return (args) -> {
-			SeasonvarParser sp = new SeasonvarParser(serialService);
+			SeasonvarParser sp = new SeasonvarParser(serialService, serialWithDatesService);
 			sp.parse();
 		};
 

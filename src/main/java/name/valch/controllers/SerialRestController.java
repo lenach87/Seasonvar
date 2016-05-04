@@ -3,7 +3,7 @@ package name.valch.controllers;
 
 import name.valch.entity.Serial;
 import name.valch.service.SerialService;
-import name.valch.service.SerialsWithDatesService;
+import name.valch.service.SerialWithDatesService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.ui.Model;
@@ -21,7 +21,7 @@ import java.util.List;
 public class SerialRestController {
 
     private SerialService serialService;
-    private SerialsWithDatesService serialsWithDatesService;
+    private SerialWithDatesService serialWithDatesService;
 
     @Autowired
     public void setSerialService(SerialService serialService) {
@@ -29,8 +29,8 @@ public class SerialRestController {
     }
 
     @Autowired
-    public void setSerialsWithDatesService (SerialsWithDatesService serialsWithDatesService) {
-        this.serialsWithDatesService = serialsWithDatesService;
+    public void setSerialWithDatesService(SerialWithDatesService serialWithDatesService) {
+        this.serialWithDatesService = serialWithDatesService;
     }
 
     @RequestMapping(value = "list", method = RequestMethod.GET)
@@ -68,7 +68,7 @@ public class SerialRestController {
 
         model.addAttribute("name", addForm.getName());
 
-        if (serialService.add(addForm)!=null) {
+        if (addForm.getName()!=null) {
             Serial serial = serialService.add(addForm);
             serialService.save(serial);
             redirect.addFlashAttribute("globalMessage", "Message added successfully");

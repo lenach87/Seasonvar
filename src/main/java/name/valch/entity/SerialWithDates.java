@@ -1,31 +1,45 @@
 package name.valch.entity;
 
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
+import javax.persistence.*;
 import java.time.LocalDateTime;
-
+import java.time.format.DateTimeFormatter;
 
 
 @Entity
-public class SerialsWithDates {
+public class SerialWithDates {
 
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
+    @Column
     private Long id;
+
+    @Column
     private String name;
+
+    @Column
     private LocalDateTime date;
 
-    public SerialsWithDates() {
+    @Column
+    private String dateString;
+
+    public String getDateString() {
+        return date.format(DateTimeFormatter.ISO_DATE_TIME);
     }
 
-    public SerialsWithDates(String name, LocalDateTime date) {
+    public void setDateString(LocalDateTime date) {
+        this.dateString = date.format(DateTimeFormatter.ISO_DATE_TIME);
+    }
+
+    public SerialWithDates() {
+    }
+
+    public SerialWithDates(String name, LocalDateTime date) {
         this.name = name;
         this.date = date;
+        setDateString(date);
     }
 
-    public SerialsWithDates(String name) {
+    public SerialWithDates(String name) {
         this.name = name;
     }
 
@@ -45,10 +59,6 @@ public class SerialsWithDates {
         this.name = name;
     }
 
-    public LocalDateTime getDate() {
-        return date;
-    }
-
     public void setDate(LocalDateTime date) {
         this.date = date;
     }
@@ -58,7 +68,7 @@ public class SerialsWithDates {
         return "Serials{" +
                 "id=" + id +
                 ", name='" + name + '\'' +
-                ", date=" + date +'}';
+                ", date=" + dateString +'}';
     }
 
 }

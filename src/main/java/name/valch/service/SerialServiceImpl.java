@@ -1,7 +1,7 @@
 package name.valch.service;
 
 import name.valch.entity.Serial;
-import name.valch.entity.SerialsWithDates;
+import name.valch.entity.SerialWithDates;
 import name.valch.repository.SerialRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -18,13 +18,13 @@ public class SerialServiceImpl implements SerialService {
     SerialRepository serialRepository;
 
     @Autowired
-    SerialsWithDatesService serialsWithDatesService;
+    SerialWithDatesService serialWithDatesService;
 
     @Override
     @Transactional
     public Serial save(Serial serial) {
-        SerialsWithDates swd = new SerialsWithDates(serial.getName(), LocalDateTime.now());
-        serialsWithDatesService.save(swd);
+        SerialWithDates swd = new SerialWithDates(serial.getName(), LocalDateTime.now());
+        serialWithDatesService.save(swd);
         return serialRepository.save(serial);
     }
 
@@ -40,8 +40,8 @@ public class SerialServiceImpl implements SerialService {
     }
 
     @Override
-    public List<Serial> findByPattern(String pattern) {
-        return serialRepository.findByPattern(pattern);
+    public List<Serial> findByName(String name) {
+        return serialRepository.findByName(name);
     }
 
     @Override
@@ -60,17 +60,17 @@ public class SerialServiceImpl implements SerialService {
     public void deleteMultiple (Long[] ids) {
 
         List<Serial> selectedList1 = new ArrayList<>();
-        List<SerialsWithDates> selectedList2 = new ArrayList<>();
+        List<SerialWithDates> selectedList2 = new ArrayList<>();
         for (Long id:ids) {
             selectedList1.add(serialRepository.findById(id));
-            selectedList2.add(serialsWithDatesService.findById(id));
+            selectedList2.add(serialWithDatesService.findByName(serialRepository.findById(id).getName()));
         }
 
         for(Serial ser : selectedList1) {
             serialRepository.delete(ser);
         }
-        for(SerialsWithDates swd : selectedList2) {
-            serialsWithDatesService.delete(swd.getId());
+        for(SerialWithDates swd : selectedList2) {
+            serialWithDatesService.delete(swd.getId());
         }
     }
 
@@ -78,15 +78,15 @@ public class SerialServiceImpl implements SerialService {
     @Override
     public Serial add (Serial addForm) {
 
-        if (!serialRepository.findByPattern(addForm.getName()).isEmpty()) {
+        if (serialRepository.findByName(addForm.getName()).isEmpty()) {
             Serial serial = new Serial();
-            SerialsWithDates swd = new SerialsWithDates();
+            SerialWithDates swd = new SerialWithDates();
 
             serial.setName(addForm.getName());
             swd.setName(addForm.getName());
-            swd.setDate(LocalDateTime.now());
-
-            //    message = messageRepository.save(message);
+            LocalDateTime time = LocalDateTime.now();
+            swd.setDate(time);
+            swd.setDateString(time);
             return serial;
 
         }

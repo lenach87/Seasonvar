@@ -13,7 +13,7 @@ public interface SerialService {
 
     Serial findOne(Long id);
 
-    List<Serial> findByPattern(String pattern);
+    List<Serial> findByName(String name);
 
     void delete(Long id);
 

@@ -11,8 +11,7 @@ import java.util.List;
 @Repository
 public interface SerialRepository extends JpaRepository<Serial, Long> {
 
-    @Query("select c from Serial c where c.name like :pattern")
-    List<Serial> findByPattern(String pattern);
+    List<Serial> findByName(String name);
 
     Serial findById(Long id);
 }

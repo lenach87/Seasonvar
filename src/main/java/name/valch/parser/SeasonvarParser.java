@@ -2,9 +2,9 @@ package name.valch.parser;
 
 import name.valch.SeasonvarApplication;
 import name.valch.entity.Serial;
-import name.valch.entity.SerialsWithDates;
+import name.valch.entity.SerialWithDates;
 import name.valch.service.SerialService;
-import name.valch.service.SerialsWithDatesService;
+import name.valch.service.SerialWithDatesService;
 import org.jsoup.Jsoup;
 import org.jsoup.nodes.Document;
 import org.jsoup.nodes.Element;
@@ -30,17 +30,23 @@ public class SeasonvarParser implements Parser  {
     }
 
     private SerialService serialService;
-    private SerialsWithDatesService serialsWithDatesService;
+    private SerialWithDatesService serialWithDatesService;
 
     @Autowired
     public void setSerialService (SerialService serialService) {
         this.serialService=serialService;
 
     }
+    @Autowired
+    public void setSerialWithDatesService(SerialWithDatesService serialWithDatesService) {
+        this.serialWithDatesService = serialWithDatesService;
 
-    public SeasonvarParser(SerialService serialService) {
+    }
+
+    public SeasonvarParser(SerialService serialService, SerialWithDatesService serialWithDatesService) {
         super();
         this.serialService = serialService;
+        this.serialWithDatesService = serialWithDatesService;
     }
 
     private static final Logger log = LoggerFactory.getLogger(SeasonvarApplication.class);
@@ -63,21 +69,21 @@ public class SeasonvarParser implements Parser  {
             Element current = doc.select("div.film-list-block").first();
             Element current1 = current.children().select("div.film-list-block-content").first();
             Elements titles = current1.children().select("div.film-list-item");
-            log.info(titles.html());
+          //  log.info(titles.html());
             List<String> names = new ArrayList<>();
+            List<Serial> ser = serialService.findAll();
             for (Element c:titles) {
                 String url = c.attr("abs:href");
-                log.info(url);
-                List<Serial> ser = serialService.findAll();
+            //    log.info(url)
                 for (Serial s:ser) {
                     if (s.getName().equals(url)) {
                         names.add(s.getName());
                     }
                 }
             }
-            log.info(names.toString());
+            //log.info(names.toString());
             for (String str:names) {
-                SerialsWithDates swd = serialsWithDatesService.findByPattern(str);
+                SerialWithDates swd = serialWithDatesService.findByName(str);
                 swd.setDate(LocalDateTime.now());
             }
         }

@@ -1,6 +1,6 @@
 package name.valch.mail;
 
-import name.valch.entity.SerialsWithDates;
+import name.valch.entity.SerialWithDates;
 import org.springframework.mail.SimpleMailMessage;
 import org.springframework.mail.javamail.JavaMailSender;
 
@@ -18,7 +18,7 @@ public class MailManager {
         this.sender = sender;
     }
 
-    public void sendNotification(List<String> emails, SerialsWithDates serial){
+    public void sendNotification(List<String> emails, SerialWithDates serial){
         String text = getNotificationText(serial);
         for (String s : emails){
             sendNotification(s, text);
@@ -33,7 +33,7 @@ public class MailManager {
         sender.send(msg);
     }
 
-    private String getNotificationText(SerialsWithDates serial){
+    private String getNotificationText(SerialWithDates serial){
         String template;
         try {
             InputStream is = this.getClass().getResourceAsStream("/MessageTemplate.txt");

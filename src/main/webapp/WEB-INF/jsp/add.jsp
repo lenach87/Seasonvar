@@ -34,24 +34,22 @@
             </div>
         </nav>
     </div>
-
-<div class="form-group">
+    <div class="form-group">
     <form:form action="add" method="post" modelAttribute="addForm"
                class="form-horizontal" role="form" cssStyle="width: 800px; margin: 0 auto;">
 
     <div class="form-group">
-        <label for="name" class="col-sm-2 control-label">To</label>
+        <label for="name" class="col-sm-2 control-label">Serial</label>
         <div class="col-sm-4">
-            <form:input path="name" type="text" class="form-control" placeholder="To" autofocus="true"/>
+            <form:input path="name" type="text" class="form-control" placeholder="Serial" autofocus="true"/>
             <form:errors path="name" cssStyle="color: #ff0000;"/>
         </div>
     </div>
         <div class="col-sm-offset-2 col-sm-4">
-            <button class="btn btn-lg btn-primary btn-block"  type="submit" value="Create"> Add </button>
+            <button class="btn btn-lg btn-primary btn-block"  type="submit" value="Add"> Add </button>
         </div>
-    </div>
     </form:form>
-</div>
+    </div>
 </div>
 
 </body>

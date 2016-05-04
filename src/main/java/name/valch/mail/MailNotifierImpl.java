@@ -1,8 +1,8 @@
 package name.valch.mail;
 
-import name.valch.entity.SerialsWithDates;
+import name.valch.entity.SerialWithDates;
 import name.valch.parser.Parser;
-import name.valch.service.SerialsWithDatesService;
+import name.valch.service.SerialWithDatesService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.scheduling.annotation.Scheduled;
@@ -22,7 +22,7 @@ public class MailNotifierImpl implements MailNotifier {
     @Autowired
     MailManager mailManager;
     @Autowired
-    SerialsWithDatesService serialsWithDatesService;
+    SerialWithDatesService serialWithDatesService;
 
     public MailNotifierImpl () {
 
@@ -42,14 +42,15 @@ public class MailNotifierImpl implements MailNotifier {
 
     @Override
     @Transactional
-    @Scheduled(cron = "5 * * * * *")
-//    @Scheduled(fixedRate = 10000)
+    @Scheduled(cron = "1 1 * * * *")
     public void checkAndSend() {
         seasonvarParser.parse();
-        List<SerialsWithDates> serials = serialsWithDatesService.findByDate(LocalDateTime.now().minusHours(Long.parseLong("1")), LocalDateTime.now());
+        LocalDateTime now = LocalDateTime.now();
+        LocalDateTime before = now.minusSeconds(Long.parseLong("60"));
+        List<SerialWithDates> serials = serialWithDatesService.findByDateBetween(before, now);
 //        System.out.println(myList);
         if (!serials.isEmpty()) {
-            for (SerialsWithDates serial : serials) {
+            for (SerialWithDates serial : serials) {
                 mailManager.sendNotification(myList, serial);
                 System.out.println("sent");
             }

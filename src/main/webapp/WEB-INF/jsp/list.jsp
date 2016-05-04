@@ -66,23 +66,14 @@
     </div>
     <div class="col-sm-9 col-sm-offset-3 col-md-10 col-md-offset-2 main">
 
-      <c:if test="${empty serials}">
-        <thead>
-        <h4><p class="bg-primary"> You have not received any messages yet </p></h4>
-        </thead>
-      </c:if>
-
-      <h2 class="sub-header">Incoming messages</h2>
+      <h2 class="sub-header">Serials</h2>
 
         <div class="table-responsive">
           <form class="form-inline" action="${rootURL}delete" method="post">
           <table class="table table-striped">
             <colgroup>
-              <col span="1" style="width: 8%;">
-              <col span="1" style="width: 15%;">
-              <col span="1" style="width: 17%;">
-              <col span="1" style="width: 35%;">
-              <col span="1" style="width: 15%;">
+              <col span="1" style="width: 10%;">
+              <col span="1" style="width: 90%;">
 
             </colgroup>
             <thead>
@@ -93,10 +84,10 @@
                   Delete
                 </button>
               </td>
+      <%--        <td><b></b></td>
               <td><b></b></td>
               <td><b></b></td>
-              <td><b></b></td>
-              <td><b></b></td>
+              <td><b></b></td>--%>
             </tr>
             </thead>
             <c:if test="${list != null}">
