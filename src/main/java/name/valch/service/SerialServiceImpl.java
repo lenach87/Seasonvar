@@ -40,7 +40,7 @@ public class SerialServiceImpl implements SerialService {
     }
 
     @Override
-    public List<Serial> findByName(String name) {
+    public Serial findByName(String name) {
         return serialRepository.findByName(name);
     }
 
@@ -65,7 +65,7 @@ public class SerialServiceImpl implements SerialService {
         List<SerialWithDates> selectedList2 = new ArrayList<>();
         for (Long id:ids) {
             selectedList1.add(serialRepository.findById(id));
-            selectedList2.add(serialWithDatesService.findById(id));
+            selectedList2.add(serialWithDatesService.findByName(serialRepository.findById(id).getName()));
 
         }
 
@@ -84,12 +84,10 @@ public class SerialServiceImpl implements SerialService {
         if (serialRepository.findByNameIgnoreCaseContaining(addForm.getName()).isEmpty()) {
             Serial serial = new Serial();
             SerialWithDates swd = new SerialWithDates();
-
             serial.setName(addForm.getName());
             swd.setName(addForm.getName());
             LocalDateTime time = LocalDateTime.now();
             swd.setDate(time);
-            swd.setId(serial.getId());
             return serial;
 
         }

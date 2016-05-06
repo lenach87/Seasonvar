@@ -48,9 +48,8 @@ public class MailManager {
         } catch (IOException ex)
         {
             ex.printStackTrace();
-            template = "New series of %1$s added";
+            template = "New series of %1$s added link %2$s";
         }
-        return String.format(
-                template, serial.getName());
+        return String.format(template, serial.getName(), serial.getLink());
     }
 }

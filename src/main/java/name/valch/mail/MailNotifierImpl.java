@@ -42,14 +42,14 @@ public class MailNotifierImpl implements MailNotifier {
 
     @Override
     @Transactional
-    @Scheduled(cron = "1 59 * * * *")
+    @Scheduled(cron = "1 57 * * * *")
     public void checkAndSend() {
 //        SerialWithDates swd = serialWithDatesService.findById(Long.parseLong("1"));
 //        mailManager.sendNotification(myList, swd);
 
         seasonvarParser.parse();
         LocalDateTime now = LocalDateTime.now();
-        LocalDateTime before = now.minusMinutes(Long.parseLong("59"));
+        LocalDateTime before = now.minusMinutes(Long.parseLong("58"));
         List<SerialWithDates> serials = serialWithDatesService.findByDateBetween(before, now);
         if (!serials.isEmpty()) {
             for (SerialWithDates serial : serials) {

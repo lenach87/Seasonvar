@@ -13,7 +13,6 @@ public class Serial {
     @Column
     private String name;
 
-
     public Serial() {
     }
 

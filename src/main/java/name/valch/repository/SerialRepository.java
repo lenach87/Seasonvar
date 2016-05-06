@@ -11,7 +11,7 @@ import java.util.List;
 public interface SerialRepository extends JpaRepository<Serial, Long> {
 
     List<Serial> findByNameIgnoreCaseContaining(String name);
-    List<Serial> findByName(String name);
+    Serial findByName(String name);
 
     Serial findById(Long id);
 }

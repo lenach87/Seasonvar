@@ -1,7 +1,6 @@
 package name.valch.parser;
 
 import name.valch.SeasonvarApplication;
-import name.valch.entity.Serial;
 import name.valch.entity.SerialWithDates;
 import name.valch.service.SerialService;
 import name.valch.service.SerialWithDatesService;
@@ -63,38 +62,40 @@ public class SeasonvarParser implements Parser  {
             while ((lineResult = in.readLine()) != null) {
                 builder.append(lineResult);
             }
-
-         /*   File input = new ClassPathResource("seasonvar1.htm").getFile();
-            Document doc = Jsoup.parse(input, "UTF-8", "");*/
-
             in.close();
             String text = builder.toString();
-            Document doc = Jsoup.parse(text);
+            Document doc = Jsoup.parse(text, "http://seasonvar.ru");
+
+/*          File input = new ClassPathResource("seasonvar1.htm").getFile();
+            Document doc = Jsoup.parse(input, "UTF-8", "");*/
             Element current = doc.select("div.film-list-block").first();
             Element current1 = current.children().select("div.film-list-block-content").first();
          //   log.info(current1.html());
             Elements titles = current1.children().select("div.film-list-item");
             List<String> names = new ArrayList<>();
-            List<Serial> ser = serialService.findAll();
+            List<SerialWithDates> ser = serialWithDatesService.findAll();
             for (Element c:titles) {
-            //    String urllink = c.attr("abs:href");
-
+                Element individuallink = c.select("a[href]").first();
+                StringBuilder strbuild = new StringBuilder();
+                strbuild.append("http://seasonvar.ru");
+                strbuild.append(individuallink.attr("href"));
+                String urllink = strbuild.toString();
+               // log.info ("Link = "+ individuallink.attr("href"));
                 String serialName = c.text();
-                log.info ("Text found "+ c.text());
+               // log.info ("Text found "+ c.text());
             //    log.info(url)
-                for (Serial s:ser) {
-                    if (serialName.toLowerCase().contains(s.getName().toLowerCase())) {
+                for (SerialWithDates s:ser) {
+                    if (serialName.toLowerCase().contains(s.getName().toLowerCase())&&(s.getDate().isBefore(LocalDateTime.now().minusMinutes(Long.parseLong("61"))))) {
                         names.add(s.getName());
+                        s.setLink(urllink);
                     }
                 }
             }
             //log.info(names.toString());
             for (String str:names) {
-                List <SerialWithDates> swd = serialWithDatesService.findByNameContaining(str);
-                for (SerialWithDates a:swd) {
-                    log.info("Serial with new date" + str);
-                    a.setDate(LocalDateTime.now());
-                }
+                SerialWithDates swd = serialWithDatesService.findByName(str);
+                log.info("Serial with new date found " + str);
+                swd.setDate(LocalDateTime.now());
             }
         }
         catch (Exception e) {

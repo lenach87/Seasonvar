@@ -13,7 +13,7 @@ import java.util.List;
 public interface SerialWithDatesRepository extends JpaRepository<SerialWithDates, Long> {
 
 
-    List<SerialWithDates> findByName(String name);
+    SerialWithDates findByName(String name);
     List<SerialWithDates> findByNameIgnoreCaseContaining(String name);
     //@Query(value = "select c from SerialWithDates c where c.date between date1 and date2")
     ArrayList<SerialWithDates> findByDateBetween (LocalDateTime date1, LocalDateTime date2);

@@ -16,7 +16,18 @@ public class SerialWithDates {
     private String name;
 
     @Column
+    private String link;
+
+    @Column
     private LocalDateTime date;
+
+    public String getLink() {
+        return link;
+    }
+
+    public void setLink(String link) {
+        this.link = link;
+    }
 
 
     public SerialWithDates() {
@@ -51,12 +62,18 @@ public class SerialWithDates {
         this.date = date;
     }
 
+    public LocalDateTime getDate() {
+        return date;
+    }
+
     @Override
     public String toString() {
-        return "Serials{" +
+        return "SerialWithDates{" +
                 "id=" + id +
                 ", name='" + name + '\'' +
-                ", date=" + date +'}';
+                ", link='" + link + '\'' +
+                ", date=" + date +
+                '}';
     }
 
 }

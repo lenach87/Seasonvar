@@ -41,7 +41,7 @@ public class SerialWithDatesServiceImpl implements SerialWithDatesService {
     }
 
     @Override
-    public List <SerialWithDates> findByName(String name) {
+    public SerialWithDates findByName(String name) {
         return serialWithDatesRepository.findByName(name);
     }
 

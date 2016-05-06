@@ -24,12 +24,12 @@ public class SeasonvarApplication extends SpringBootServletInitializer {
 		SpringApplication.run(SeasonvarApplication.class, args);
 	}
 
-	@Bean
-	public CommandLineRunner demo(MailManager mailManager, SerialService serialService, SerialWithDatesService serialWithDatesService) {
-		return (args) -> {
-			SeasonvarParser sp = new SeasonvarParser(serialService, serialWithDatesService);
-			sp.parse();
-		};
-
-	}
+//	@Bean
+//	public CommandLineRunner demo(MailManager mailManager, SerialService serialService, SerialWithDatesService serialWithDatesService) {
+//		return (args) -> {
+//			SeasonvarParser sp = new SeasonvarParser(serialService, serialWithDatesService);
+//			sp.parse();
+//		};
+//
+//	}
 }
