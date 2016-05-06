@@ -17,7 +17,8 @@ public interface SerialWithDatesService {
 
     SerialWithDates findById(Long id);
 
-    SerialWithDates findByName(String name);
+    List <SerialWithDates> findByName(String name);
+    List <SerialWithDates> findByNameContaining (String name);
 
     void delete(Long id);
 

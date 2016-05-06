@@ -63,28 +63,38 @@ public class SeasonvarParser implements Parser  {
             while ((lineResult = in.readLine()) != null) {
                 builder.append(lineResult);
             }
+
+         /*   File input = new ClassPathResource("seasonvar1.htm").getFile();
+            Document doc = Jsoup.parse(input, "UTF-8", "");*/
+
             in.close();
             String text = builder.toString();
             Document doc = Jsoup.parse(text);
             Element current = doc.select("div.film-list-block").first();
             Element current1 = current.children().select("div.film-list-block-content").first();
+         //   log.info(current1.html());
             Elements titles = current1.children().select("div.film-list-item");
-          //  log.info(titles.html());
             List<String> names = new ArrayList<>();
             List<Serial> ser = serialService.findAll();
             for (Element c:titles) {
-                String url = c.attr("abs:href");
+            //    String urllink = c.attr("abs:href");
+
+                String serialName = c.text();
+                log.info ("Text found "+ c.text());
             //    log.info(url)
                 for (Serial s:ser) {
-                    if (s.getName().equals(url)) {
+                    if (serialName.toLowerCase().contains(s.getName().toLowerCase())) {
                         names.add(s.getName());
                     }
                 }
             }
             //log.info(names.toString());
             for (String str:names) {
-                SerialWithDates swd = serialWithDatesService.findByName(str);
-                swd.setDate(LocalDateTime.now());
+                List <SerialWithDates> swd = serialWithDatesService.findByNameContaining(str);
+                for (SerialWithDates a:swd) {
+                    log.info("Serial with new date" + str);
+                    a.setDate(LocalDateTime.now());
+                }
             }
         }
         catch (Exception e) {

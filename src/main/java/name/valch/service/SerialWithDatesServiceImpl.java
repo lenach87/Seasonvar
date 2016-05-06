@@ -41,18 +41,21 @@ public class SerialWithDatesServiceImpl implements SerialWithDatesService {
     }
 
     @Override
-    public SerialWithDates findByName(String name) {
+    public List <SerialWithDates> findByName(String name) {
         return serialWithDatesRepository.findByName(name);
     }
 
     @Override
+    public List <SerialWithDates> findByNameContaining(String name) {
+        return serialWithDatesRepository.findByNameIgnoreCaseContaining(name);
+    }
 
+    @Override
     public void delete(Long id) {//admin
         serialWithDatesRepository.delete(id);
     }
 
     @Override
-
     public SerialWithDates update(SerialWithDates serial) {
         return serialWithDatesRepository.save(serial);
     }

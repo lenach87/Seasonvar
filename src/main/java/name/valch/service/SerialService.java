@@ -14,7 +14,7 @@ public interface SerialService {
     Serial findOne(Long id);
 
     List<Serial> findByName(String name);
-
+    List<Serial> findByNameContaining(String name);
     void delete(Long id);
 
     Serial update(Serial serial);

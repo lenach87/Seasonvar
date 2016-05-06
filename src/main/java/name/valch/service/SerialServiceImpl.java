@@ -45,7 +45,9 @@ public class SerialServiceImpl implements SerialService {
     }
 
     @Override
+    public List<Serial> findByNameContaining(String name) {return serialRepository.findByNameIgnoreCaseContaining(name);}
 
+    @Override
     public void delete(Long id) {//admin
         serialRepository.delete(id);
     }
@@ -63,7 +65,8 @@ public class SerialServiceImpl implements SerialService {
         List<SerialWithDates> selectedList2 = new ArrayList<>();
         for (Long id:ids) {
             selectedList1.add(serialRepository.findById(id));
-            selectedList2.add(serialWithDatesService.findByName(serialRepository.findById(id).getName()));
+            selectedList2.add(serialWithDatesService.findById(id));
+
         }
 
         for(Serial ser : selectedList1) {
@@ -78,7 +81,7 @@ public class SerialServiceImpl implements SerialService {
     @Override
     public Serial add (Serial addForm) {
 
-        if (serialRepository.findByName(addForm.getName()).isEmpty()) {
+        if (serialRepository.findByNameIgnoreCaseContaining(addForm.getName()).isEmpty()) {
             Serial serial = new Serial();
             SerialWithDates swd = new SerialWithDates();
 
@@ -86,7 +89,7 @@ public class SerialServiceImpl implements SerialService {
             swd.setName(addForm.getName());
             LocalDateTime time = LocalDateTime.now();
             swd.setDate(time);
-            swd.setDateString(time);
+            swd.setId(serial.getId());
             return serial;
 
         }

@@ -62,6 +62,8 @@ public class AppConfig extends WebMvcConfigurerAdapter {
     private String mailUsername;
     @Value("${mail.password}")
     private String mailPassword;
+    @Value("${mail.from.email}")
+    private String mailFrom;
     @Value("${hbm2ddl.auto}")
     private String hbm2dllAuto;
     @Value("${connection.charset}")
@@ -150,6 +152,7 @@ public class AppConfig extends WebMvcConfigurerAdapter {
         props.put("mail.smtp.starttls.enable", smtpStarttls);
         props.put("mail.smtp.host", smtpHost);
         props.put("mail.smtp.port", smtpPort);
+        props.put("mail.from.email", mailFrom);
 
         sender.setJavaMailProperties(props);
         sender.setUsername(mailUsername);

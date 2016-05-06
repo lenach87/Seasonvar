@@ -2,7 +2,6 @@ package name.valch.entity;
 
 import javax.persistence.*;
 import java.time.LocalDateTime;
-import java.time.format.DateTimeFormatter;
 
 
 @Entity
@@ -19,16 +18,6 @@ public class SerialWithDates {
     @Column
     private LocalDateTime date;
 
-    @Column
-    private String dateString;
-
-    public String getDateString() {
-        return date.format(DateTimeFormatter.ISO_DATE_TIME);
-    }
-
-    public void setDateString(LocalDateTime date) {
-        this.dateString = date.format(DateTimeFormatter.ISO_DATE_TIME);
-    }
 
     public SerialWithDates() {
     }
@@ -36,7 +25,6 @@ public class SerialWithDates {
     public SerialWithDates(String name, LocalDateTime date) {
         this.name = name;
         this.date = date;
-        setDateString(date);
     }
 
     public SerialWithDates(String name) {
@@ -68,7 +56,7 @@ public class SerialWithDates {
         return "Serials{" +
                 "id=" + id +
                 ", name='" + name + '\'' +
-                ", date=" + dateString +'}';
+                ", date=" + date +'}';
     }
 
 }
