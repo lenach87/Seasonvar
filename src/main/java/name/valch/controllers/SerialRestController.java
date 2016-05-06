@@ -72,7 +72,7 @@ public class SerialRestController {
             Serial serial = serialService.add(addForm);
             serialService.save(serial);
             redirect.addFlashAttribute("globalMessage", "Message added successfully");
-            return new ModelAndView("list");
+            return new ModelAndView("redirect:/list");
         }
         else {
             result.rejectValue("name", "name", "Already added");
