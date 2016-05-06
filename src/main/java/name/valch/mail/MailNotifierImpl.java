@@ -42,7 +42,7 @@ public class MailNotifierImpl implements MailNotifier {
 
     @Override
     @Transactional
-    @Scheduled(cron = "1 * * * * *")
+    @Scheduled(cron = "1 59 * * * *")
     public void checkAndSend() {
 //        SerialWithDates swd = serialWithDatesService.findById(Long.parseLong("1"));
 //        mailManager.sendNotification(myList, swd);
