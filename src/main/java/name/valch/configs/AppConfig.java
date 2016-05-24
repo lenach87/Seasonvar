@@ -18,13 +18,12 @@ import org.springframework.orm.jpa.JpaTransactionManager;
 import org.springframework.orm.jpa.LocalContainerEntityManagerFactoryBean;
 import org.springframework.orm.jpa.vendor.HibernateJpaVendorAdapter;
 import org.springframework.scheduling.annotation.EnableScheduling;
+import org.springframework.stereotype.Controller;
 import org.springframework.transaction.PlatformTransactionManager;
 import org.springframework.transaction.annotation.EnableTransactionManagement;
+import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.servlet.ViewResolver;
-import org.springframework.web.servlet.config.annotation.DefaultServletHandlerConfigurer;
-import org.springframework.web.servlet.config.annotation.EnableWebMvc;
-import org.springframework.web.servlet.config.annotation.ResourceHandlerRegistry;
-import org.springframework.web.servlet.config.annotation.WebMvcConfigurerAdapter;
+import org.springframework.web.servlet.config.annotation.*;
 import org.springframework.web.servlet.view.InternalResourceViewResolver;
 
 import java.util.Properties;
@@ -73,6 +72,8 @@ public class AppConfig extends WebMvcConfigurerAdapter {
     @Value("${validation.mode}")
     private String validationMode;
 
+    private static final Logger log = LoggerFactory.getLogger(SeasonvarApplication.class);
+
     @Bean(name = "myDataSource")
     public DriverManagerDataSource myDataSource() {
         DriverManagerDataSource driverManagerDataSource = new DriverManagerDataSource();
@@ -113,10 +114,10 @@ public class AppConfig extends WebMvcConfigurerAdapter {
         txManager.setEntityManagerFactory(entityManagerFactory().getObject());
         return txManager;
     }
-    private static final Logger log = LoggerFactory.getLogger(SeasonvarApplication.class);
-@Bean
+
+    @Bean
     public ViewResolver getViewResolver() {
-    log.info("Entered view resolver");
+
     InternalResourceViewResolver resolver = new InternalResourceViewResolver();
     resolver.setPrefix("/WEB-INF/jsp/");
     resolver.setSuffix(".jsp");
@@ -135,13 +136,18 @@ public class AppConfig extends WebMvcConfigurerAdapter {
         configurer.enable();
     }
 
-  /*  @Controller
+    @Controller
     static class FaviconController {
         @RequestMapping("favicon.ico")
         String favicon() {
-            return "forward:/resources/images/favicon.ico";
+            return "forward:/resources/favicon.ico";
         }
-    }*/
+    }
+    @Override
+    public void addViewControllers(ViewControllerRegistry registry) {
+        registry.addViewController("/login").setViewName("login");
+        registry.setOrder(Ordered.HIGHEST_PRECEDENCE);
+    }
 
     @Bean
     public MailManager mailManager() {

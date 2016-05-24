@@ -1,9 +1,7 @@
 package name.valch;
 
-import name.valch.mail.MailManager;
-import name.valch.parser.SeasonvarParser;
-import name.valch.service.SerialService;
-import name.valch.service.SerialWithDatesService;
+import name.valch.entity.User;
+import name.valch.service.UserService;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.EnableAutoConfiguration;
@@ -24,6 +22,18 @@ public class SeasonvarApplication extends SpringBootServletInitializer {
 		SpringApplication.run(SeasonvarApplication.class, args);
 	}
 
+	@Bean
+	public CommandLineRunner demo(UserService userService) {
+		return (args) -> {
+
+			if (userService.findByLogin("admin") == null) {
+				User admin = new User("admin", "admin", "admin", "elena@valch.name");
+				userService.save(admin);
+			}
+		};
+	}
+}
+
 //	@Bean
 //	public CommandLineRunner demo(MailManager mailManager, SerialService serialService, SerialWithDatesService serialWithDatesService) {
 //		return (args) -> {
@@ -32,4 +42,3 @@ public class SeasonvarApplication extends SpringBootServletInitializer {
 //		};
 //
 //	}
-}
