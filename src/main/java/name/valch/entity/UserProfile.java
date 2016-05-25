@@ -58,7 +58,7 @@ public class UserProfile implements Serializable {
     }
 
     public void addSerial(SerialWithDates serial) {
-            log.info ("serials are not null");
+        //    log.info ("serials are not null");
             serials.add(serial);
           //  log.info ("serial.users are not null");
        //     serial.addUser(this);
@@ -67,9 +67,9 @@ public class UserProfile implements Serializable {
 
     public void removeSerial(SerialWithDates serial) {
         serials.remove(serial);
-        log.info ("The list of serials looks like empty  " + serials.size());
+      //  log.info ("The list of serials looks like empty  " + serials.size());
      //   serial.removeUser(this);
-        log.info ("The list of serials looks like empty  " + serials.isEmpty());
+     //   log.info ("The list of serials looks like empty  " + serials.isEmpty());
     }
 
 

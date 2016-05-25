@@ -37,7 +37,7 @@ public class SerialWithDatesServiceImpl implements SerialWithDatesService {
             Collection<UserProfile> allUsers = swd.getProfiles().values();
             for (UserProfile u:allUsers) {
                 if (u.getUserName().getLogin().equals(user.getLogin())) {
-                    log.info("Serials for user: " + user.getLogin() + " name of serial:" + swd.getName());
+         //           log.info("Serials for user: " + user.getLogin() + " name of serial:" + swd.getName());
                     necessarySerials.add(swd);
                 }
             }
@@ -69,7 +69,7 @@ public class SerialWithDatesServiceImpl implements SerialWithDatesService {
 
     @Override
     public void delete(SerialWithDates swd, UserProfile userProfile) {
-        log.info ("Serial to delete user  " + swd.getName());
+    //    log.info ("Serial to delete user  " + swd.getName());
         swd.removeUser(userProfile);
     }
 
@@ -99,7 +99,7 @@ public class SerialWithDatesServiceImpl implements SerialWithDatesService {
         }
         for(SerialWithDates swd : selectedList2) {
             delete(swd, user.getProfile());
-       log.info("ToDelete multiple for user " + user.getLogin() + "");
+   //    log.info("ToDelete multiple for user " + user.getLogin() + "");
             if (swd.getProfiles().isEmpty()) {
                 serialWithDatesRepository.delete(swd);
             }
@@ -114,7 +114,7 @@ public class SerialWithDatesServiceImpl implements SerialWithDatesService {
             SerialWithDates swd = new SerialWithDates(addForm.getName(), LocalDateTime.now());
             swd.addUser(user.getProfile());
             for (UserProfile u: swd.getProfiles().values()) {
-            log.info ("The list of users looks like "+ u.getUserName().getLogin());
+   //         log.info ("The list of users looks like "+ u.getUserName().getLogin());
             }
             return  serialWithDatesRepository.save(swd);
         }

@@ -105,7 +105,7 @@ public class SerialWithDates implements Serializable {
 
         profiles.remove(user.getAccountName());
         user.removeSerial(this);
-        log.info ("The list of users looks like empty" + profiles.isEmpty());
+    //    log.info ("The list of users looks like empty" + profiles.isEmpty());
     }
 
     public Map<String, UserProfile> getProfiles() {

@@ -67,9 +67,9 @@ public class SeasonvarParser implements Parser  {
                     String urllink = strbuild.toString();
                     // log.info ("Link = "+ individuallink.attr("href"));
                     String serialName = individuallink.text();
-                    log.info("Serial " + serialName);
+             //       log.info("Serial " + serialName);
                     String fullText = c.text();
-                    log.info("Text " + fullText);
+               //     log.info("Text " + fullText);
                     for (SerialWithDates s : ser) {
                         if ((serialName.equalsIgnoreCase(s.getName()))) {
                             log.info("We follow " + s.getName());
