@@ -5,57 +5,53 @@
 <%@ taglib prefix="sec" uri="http://www.springframework.org/security/tags" %>
 <%@ taglib prefix="form" uri="http://www.springframework.org/tags/form" %>
 
-  <html>
-  <head>
-    <meta charset="utf-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1">
-    <title>Seasonvar</title>
+<html>
+<head>
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Seasonvar</title>
 
-    <!-- Latest compiled and minified CSS -->
-    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/css/bootstrap.min.css">
-    <!-- Optional theme -->
-    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/css/bootstrap-theme.min.css">
-    <!-- Latest compiled and minified JavaScript -->
-    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/js/bootstrap.min.js"></script>
-    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
-    <link href="http://getbootstrap.com/examples/dashboard/dashboard.css" rel="stylesheet"><link rel="shortcut icon" href="/favicon.ico" type="image/x-icon">
-    <link rel="icon" href="/favicon.ico" type="image/x-icon">
-    <style type="text/css">
-
-      p {
-        font-size: 15px;
-        font-family: arial, sans-serif;
-      }
-      td { line-height: 1em;
-        height: 1em;
-        overflow: hidden;
-        word-wrap: break-word;
-        text-overflow: ellipsis;
-        font-size: 15px;
-        font-family: arial, sans-serif;
-      }
-
-      table {
-        line-height: 1em;
-        height: 1em;
-        overflow: hidden;
-        word-wrap: break-word;
-        text-overflow: ellipsis;
-        width: 100%;
-        font-size: 15px;
-        font-family: arial, sans-serif;}
-
-      td.blue span, td.blue span a {
-        display: block;
-        height: 100%;
-        width: 100%;
-      }
-
-    </style>
-    <link rel="shortcut icon" href="/favicon.ico" type="image/x-icon">
-    <link rel="icon" href="/favicon.ico" type="image/x-icon">
-  </head>
+  <!-- Latest compiled and minified CSS -->
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/css/bootstrap.min.css">
+  <!-- Optional theme -->
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/css/bootstrap-theme.min.css">
+  <!-- Latest compiled and minified JavaScript -->
+  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/js/bootstrap.min.js"></script>
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
+  <link href="http://getbootstrap.com/examples/dashboard/dashboard.css" rel="stylesheet"><link rel="shortcut icon" href="/favicon.ico" type="image/x-icon">
+  <link rel="icon" href="/favicon.ico" type="image/x-icon">
+  <style type="text/css">
+    p {
+      font-size: 15px;
+      font-family: arial, sans-serif;
+    }
+    td { line-height: 1em;
+      height: 1em;
+      overflow: hidden;
+      word-wrap: break-word;
+      text-overflow: ellipsis;
+      font-size: 15px;
+      font-family: arial, sans-serif;
+    }
+    table {
+      line-height: 1em;
+      height: 1em;
+      overflow: hidden;
+      word-wrap: break-word;
+      text-overflow: ellipsis;
+      width: 100%;
+      font-size: 15px;
+      font-family: arial, sans-serif;}
+    td.blue span, td.blue span a {
+      display: block;
+      height: 100%;
+      width: 100%;
+    }
+  </style>
+  <link rel="shortcut icon" href="/favicon.ico" type="image/x-icon">
+  <link rel="icon" href="/favicon.ico" type="image/x-icon">
+</head>
 <body>
 <nav class="navbar navbar-inverse navbar-fixed-top">
   <div class="container-fluid">
@@ -106,8 +102,8 @@
 
       <h2 class="sub-header">Serials</h2>
 
-        <div class="table-responsive">
-          <form class="form-inline" action="${rootURL}delete" method="post">
+      <div class="table-responsive">
+        <form class="form-inline" action="${rootURL}delete" method="post">
           <table class="table table-striped">
             <colgroup>
               <col span="1" style="width: 10%;">
@@ -122,29 +118,29 @@
                   Delete
                 </button>
               </td>
-      <%--        <td><b></b></td>
-              <td><b></b></td>
-              <td><b></b></td>
-              <td><b></b></td>--%>
+              <%--        <td><b></b></td>
+                      <td><b></b></td>
+                      <td><b></b></td>
+                      <td><b></b></td>--%>
             </tr>
             </thead>
             <c:if test="${not empty list}">
-            <c:forEach items="${list}" var="serial">
-              <tbody>
-              <tr>
-                <td>
-                  <input type="checkbox" name="toDelete[]" value="${serial.id}" id="checkbox_${serial.id}"/>
-                </td>
-                <td>${serial.name}</td>
-                <td>
-                </td>
-              </tr>
-              </tbody>
-            </c:forEach>
+              <c:forEach items="${list}" var="serial">
+                <tbody>
+                <tr>
+                  <td>
+                    <input type="checkbox" name="toDelete[]" value="${serial.id}" id="checkbox_${serial.id}"/>
+                  </td>
+                  <td>${serial.name}</td>
+                  <td>
+                  </td>
+                </tr>
+                </tbody>
+              </c:forEach>
             </c:if>
           </table>
-          </form>
-        </div>
+        </form>
+      </div>
     </div>
   </div>
 </div>

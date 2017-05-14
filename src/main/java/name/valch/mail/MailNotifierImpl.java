@@ -12,17 +12,14 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.time.LocalDateTime;
-import java.util.ArrayList;
-import java.util.Collection;
-import java.util.List;
-import java.util.Set;
+import java.util.*;
 
 
 @Service
 public class MailNotifierImpl implements MailNotifier {
 
   //  @Value("#{'${emails.list}'.split(',')}")
-    private List<String> myList = new ArrayList<>();
+    private Set<String> myList = new HashSet<>();
 
     @Autowired
     MailManager mailManager;
@@ -47,7 +44,7 @@ public class MailNotifierImpl implements MailNotifier {
 
     @Override
     @Transactional
-    @Scheduled(cron = "1 56 * * * *")
+    @Scheduled(cron = "1 53 19 * * *")
     public void checkAndSend() {
 //        SerialWithDates swd = serialWithDatesService.findById(Long.parseLong("1"));
 //        mailManager.sendNotification(myList, swd);
@@ -55,17 +52,19 @@ public class MailNotifierImpl implements MailNotifier {
         seasonvarParser.parse();
         LocalDateTime now = LocalDateTime.now();
         LocalDateTime before = now.minusMinutes(Long.parseLong("5"));
-        ArrayList<SerialWithDates> serials = (ArrayList<SerialWithDates>) serialWithDatesService.findByDateBetween(before, now);
-        if (!serials.isEmpty()) {
+        ArrayList<SerialWithDates> serialsList = (ArrayList<SerialWithDates>) serialWithDatesService.findByDateBetween(before, now);
+        if (!serialsList.isEmpty()) {
+            HashSet<SerialWithDates> serials = new HashSet<>();
+            serials.addAll(serialsList);
             for (SerialWithDates serial : serials) {
                 if (serial.getLink()!=null) {
-                serial.setDate(now);
+                    serial.setDate(now);
                     Collection<UserProfile> users = serial.getProfiles().values();
                     for (UserProfile u:users) {
                     myList.add(u.getUserName().getEmail());
                     }
-                mailManager.sendNotification(myList, serial);
                 }
+                mailManager.sendNotification(myList, serial);
               //  System.out.println("sent");
             }
         }

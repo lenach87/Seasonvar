@@ -60,7 +60,7 @@ public class SerialRestController {
     public ModelAndView addForm(Model model) { //@ModelAttribute MessageForm messageForm) {
         SerialWithDates addForm = new SerialWithDates();
         model.addAttribute("addForm", addForm);
-        return new ModelAndView ("add");
+        return new ModelAndView ("add", "addForm", addForm);
     }
 
     @RequestMapping(value = "/add", method = RequestMethod.POST)

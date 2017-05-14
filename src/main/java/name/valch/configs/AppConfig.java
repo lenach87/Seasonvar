@@ -140,7 +140,7 @@ public class AppConfig extends WebMvcConfigurerAdapter {
     static class FaviconController {
         @RequestMapping("favicon.ico")
         String favicon() {
-            return "forward:/resources/favicon.ico";
+            return "resources/favicon.ico";
         }
     }
     @Override
